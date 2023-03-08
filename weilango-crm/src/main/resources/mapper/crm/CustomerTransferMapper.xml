@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weilango.crm.mapper.CustomerTransferMapper">
+
+    <resultMap type="CustomerTransfer" id="CustomerTransferResult">
+        <result property="id"    column="id"    />
+        <result property="orgUserId"    column="org_user_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="reason"    column="reason"    />
+        <result property="customerId"    column="customer_id"    />
+        <result property="nextTime"    column="next_time"    />
+        <result property="auditStatus"    column="audit_status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectCustomerTransferVo">
+        select id, org_user_id, user_id, reason, customer_id, next_time, audit_status, del_flag, create_by, create_time, update_by, update_time, remark from crm_customer_transfer
+    </sql>
+
+    <select id="selectCustomerTransferList" parameterType="CustomerTransfer" resultMap="CustomerTransferResult">
+        <include refid="selectCustomerTransferVo"/>
+        <where>
+            <if test="orgUserId != null "> and org_user_id = #{orgUserId}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="reason != null  and reason != ''"> and reason = #{reason}</if>
+            <if test="customerId != null "> and customer_id = #{customerId}</if>
+            <if test="nextTime != null "> and next_time = #{nextTime}</if>
+            <if test="auditStatus != null  and auditStatus != ''"> and audit_status = #{auditStatus}</if>
+        </where>
+    </select>
+
+    <select id="selectCustomerTransferById" parameterType="Long" resultMap="CustomerTransferResult">
+        <include refid="selectCustomerTransferVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCustomerTransfer" parameterType="CustomerTransfer">
+        insert into crm_customer_transfer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="orgUserId != null">org_user_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="reason != null">reason,</if>
+            <if test="customerId != null">customer_id,</if>
+            <if test="nextTime != null">next_time,</if>
+            <if test="auditStatus != null">audit_status,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="orgUserId != null">#{orgUserId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="reason != null">#{reason},</if>
+            <if test="customerId != null">#{customerId},</if>
+            <if test="nextTime != null">#{nextTime},</if>
+            <if test="auditStatus != null">#{auditStatus},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCustomerTransfer" parameterType="CustomerTransfer">
+        update crm_customer_transfer
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orgUserId != null">org_user_id = #{orgUserId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="reason != null">reason = #{reason},</if>
+            <if test="customerId != null">customer_id = #{customerId},</if>
+            <if test="nextTime != null">next_time = #{nextTime},</if>
+            <if test="auditStatus != null">audit_status = #{auditStatus},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCustomerTransferById" parameterType="Long">
+        delete from crm_customer_transfer where id = #{id}
+    </delete>
+
+    <delete id="deleteCustomerTransferByIds" parameterType="String">
+        delete from crm_customer_transfer where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

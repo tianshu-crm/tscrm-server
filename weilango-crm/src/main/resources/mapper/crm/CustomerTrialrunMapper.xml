@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weilango.crm.mapper.CustomerTrialrunMapper">
+
+    <resultMap type="CustomerTrialrun" id="CustomerTrialrunResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="type"    column="type"    />
+        <result property="status"    column="status"    />
+        <result property="storeName"    column="store_name"    />
+        <result property="storeCode"    column="store_code"    />
+        <result property="businessType"    column="business_type"    />
+        <result property="source"    column="source"    />
+        <result property="phonenumber"    column="phonenumber"    />
+        <result property="sex"    column="sex"    />
+        <result property="trialrunTime"    column="trialrun_time"    />
+        <result property="trialrunName"    column="trialrun_name"    />
+        <result property="trialrunPhone"    column="trialrun_phone"    />
+        <result property="trialrunCarType"    column="trialrun_car_type"    />
+        <result property="trialrunCarSeries"    column="trialrun_car_series"    />
+        <result property="trialrunNo"    column="trialrun_no"    />
+        <result property="customerId"    column="customer_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectCustomerTrialrunVo">
+        select id, name, type, status, store_name, store_code, business_type, source, phonenumber, sex, trialrun_time, trialrun_name, trialrun_phone, trialrun_car_type, trialrun_car_series, trialrun_no, customer_id, user_id, del_flag, create_by, create_time, update_by, update_time, remark from crm_customer_trialrun
+    </sql>
+
+    <select id="selectCustomerTrialrunList" parameterType="CustomerTrialrun" resultType="CustomerTrialrunVo">
+        SELECT
+        t.`id` trialrunId
+        ,t.`trialrun_no` trialrunNo
+        ,dt.`dict_label` `type`
+        ,ds.`dict_label` `status`
+        ,t.`store_name` storeName
+        ,t.`store_code` storeCode
+        ,dbt.`dict_label` businessType
+        ,t.`phonenumber`
+        ,t.`name`
+        FROM `crm_customer_trialrun` t
+        LEFT JOIN `sys_dict_data` dt ON dt.`dict_type`='crm_customer_trialruntype' AND dt.`dict_value` = t.`type`
+        LEFT JOIN `sys_dict_data` ds ON ds.`dict_type`='crm_customer_trialrunstatus' AND ds.`dict_value` = t.`status`
+        LEFT JOIN `sys_dict_data` dbt ON dbt.`dict_type`='crm_customer_businessType' AND dbt.`dict_value` = t.`business_type`
+        <where>
+            t.`del_flag` = 0
+            <if test="key != null  and key != ''"> and (t.name like concat('%', #{key}, '%') or t.phonenumber like concat('%', #{key}, '%') or t.trialrun_no like concat('%', #{key}, '%')) </if>
+            <if test="type != null  and type != ''"> and t.type = #{type}</if>
+            <if test="source != null  and source != ''"> and t.source = #{source}</if>
+            <if test="status != null  and status != ''"> and t.status = #{status}</if>
+            <if test="trialrunTime != null "> and DATE_FORMAT(t.`trialrun_time`,'%Y-%m-%d') = DATE_FORMAT(#{trialrunTime},'%Y-%m-%d')</if>
+            <if test="createTime != null "> and DATE_FORMAT(t.`create_time`,'%Y-%m-%d') = DATE_FORMAT(#{createTime},'%Y-%m-%d')</if>
+            <if test="trialrunCarType != null  and trialrunCarType != ''"> and t.trialrun_car_type = #{trialrunCarType}</if>
+            <if test="trialrunCarSeries != null  and trialrunCarSeries != ''"> and t.trialrun_car_series = #{trialrunCarSeries}</if>
+        </where>
+        order by t.create_time desc
+    </select>
+
+    <select id="selectCustomerTrialrunById" parameterType="Long" resultMap="CustomerTrialrunResult">
+        <include refid="selectCustomerTrialrunVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCustomerTrialrun" parameterType="CustomerTrialrun" useGeneratedKeys="true" keyProperty="id">
+        insert into crm_customer_trialrun
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="type != null">type,</if>
+            <if test="status != null">status,</if>
+            <if test="storeName != null">store_name,</if>
+            <if test="storeCode != null">store_code,</if>
+            <if test="businessType != null">business_type,</if>
+            <if test="source != null">source,</if>
+            <if test="phonenumber != null">phonenumber,</if>
+            <if test="sex != null">sex,</if>
+            <if test="trialrunTime != null">trialrun_time,</if>
+            <if test="trialrunName != null">trialrun_name,</if>
+            <if test="trialrunPhone != null">trialrun_phone,</if>
+            <if test="trialrunCarType != null">trialrun_car_type,</if>
+            <if test="trialrunCarSeries != null">trialrun_car_series,</if>
+            <if test="trialrunNo != null">trialrun_no,</if>
+            <if test="customerId != null">customer_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="type != null">#{type},</if>
+            <if test="status != null">#{status},</if>
+            <if test="storeName != null">#{storeName},</if>
+            <if test="storeCode != null">#{storeCode},</if>
+            <if test="businessType != null">#{businessType},</if>
+            <if test="source != null">#{source},</if>
+            <if test="phonenumber != null">#{phonenumber},</if>
+            <if test="sex != null">#{sex},</if>
+            <if test="trialrunTime != null">#{trialrunTime},</if>
+            <if test="trialrunName != null">#{trialrunName},</if>
+            <if test="trialrunPhone != null">#{trialrunPhone},</if>
+            <if test="trialrunCarType != null">#{trialrunCarType},</if>
+            <if test="trialrunCarSeries != null">#{trialrunCarSeries},</if>
+            <if test="trialrunNo != null">#{trialrunNo},</if>
+            <if test="customerId != null">#{customerId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCustomerTrialrun" parameterType="CustomerTrialrun">
+        update crm_customer_trialrun
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="storeName != null">store_name = #{storeName},</if>
+            <if test="storeCode != null">store_code = #{storeCode},</if>
+            <if test="businessType != null">business_type = #{businessType},</if>
+            <if test="source != null">source = #{source},</if>
+            <if test="phonenumber != null">phonenumber = #{phonenumber},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="trialrunTime != null">trialrun_time = #{trialrunTime},</if>
+            <if test="trialrunName != null">trialrun_name = #{trialrunName},</if>
+            <if test="trialrunPhone != null">trialrun_phone = #{trialrunPhone},</if>
+            <if test="trialrunCarType != null">trialrun_car_type = #{trialrunCarType},</if>
+            <if test="trialrunCarSeries != null">trialrun_car_series = #{trialrunCarSeries},</if>
+            <if test="trialrunNo != null">trialrun_no = #{trialrunNo},</if>
+            <if test="customerId != null">customer_id = #{customerId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCustomerTrialrunById" parameterType="Long">
+        delete from crm_customer_trialrun where id = #{id}
+    </delete>
+
+    <delete id="deleteCustomerTrialrunByIds" parameterType="String">
+        delete from crm_customer_trialrun where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

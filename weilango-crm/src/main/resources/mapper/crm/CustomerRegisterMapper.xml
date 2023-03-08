@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weilango.crm.mapper.CustomerRegisterMapper">
+
+    <resultMap type="CustomerRegister" id="CustomerRegisterResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="phonenumber"    column="phonenumber"    />
+        <result property="wechat"    column="wechat"    />
+        <result property="times"    column="times"    />
+        <result property="type"    column="type"    />
+        <result property="purpose"    column="purpose"    />
+        <result property="intentionCarSeries"    column="intention_car_series"    />
+        <result property="intentionCarType"    column="intention_car_type"    />
+        <result property="referrer"    column="referrer"    />
+        <result property="referrerPhone"    column="referrer_phone"    />
+        <result property="referrerWechat"    column="referrer_wechat"    />
+        <result property="userId"    column="user_id"    />
+        <result property="duration"    column="duration"    />
+        <result property="number"    column="number"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="isIntroduce"    column="is_introduce"    />
+        <result property="isManagerParticipation"    column="is_manager_participation"    />
+        <result property="source"    column="source"    />
+        <result property="carType"    column="car_type"    />
+        <result property="carNo"    column="car_no"    />
+        <result property="customerId"    column="customer_id"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectCustomerRegisterVo">
+        select id, name, phonenumber, wechat, times, type, purpose, intention_car_series, intention_car_type, referrer, referrer_phone, referrer_wechat, user_id, duration, number, start_time, end_time, is_introduce, is_manager_participation, source, car_type, car_no, customer_id, del_flag, create_by, create_time, update_by, update_time, remark from crm_customer_register
+    </sql>
+
+    <select id="selectCustomerRegisterList" parameterType="CustomerRegister" resultType="CustomerRegisterVo">
+        SELECT
+        r.`id` registerId
+        ,r.`name`
+        ,r.`phonenumber`
+        ,r.`wechat`
+        ,ds.`dict_label` `source`
+        ,r.`times`
+        ,dt.`dict_label` `type`
+        ,dp.`dict_label` `purpose`
+        ,r.`intention_car_series` intentionCarSeries
+        ,r.`intention_car_type` intentionCarType
+        ,r.`referrer`
+        ,r.`referrer_phone` referrerPhone
+        ,r.`referrer_wechat` referrerWechat
+        ,u.nick_name userName
+        ,DATE_FORMAT(r.`create_time`,'%Y-%m-%d %H:%i:%s') createTime
+        FROM `crm_customer_register` r
+        LEFT JOIN `sys_dict_data` ds ON ds.`dict_type`='crm_customer_source' AND ds.`dict_value` = r.`source`
+        LEFT JOIN `sys_dict_data` dt ON dt.`dict_type`='crm_customer_visittype' AND dt.`dict_value` = r.`type`
+        LEFT JOIN `sys_dict_data` dp ON dp.`dict_type`='crm_customer_visitpurpose' AND dp.`dict_value` = r.`purpose`
+        LEFT JOIN `sys_user` u ON u.`user_id` = r.`user_id`
+        LEFT JOIN crm_customer_trialrun t on t.customer_id = r.customer_id
+        <where>
+            r.`del_flag` = 0
+            <if test="key != null  and key != ''"> and (r.name like concat('%', #{key}, '%') or r.phonenumber like concat('%', #{key}, '%') or r.wechat like concat('%', #{key}, '%')) </if>
+            <if test="startTime != null "> and DATE_FORMAT(r.`start_time`,'%Y-%m-%d') = DATE_FORMAT(#{startTime},'%Y-%m-%d') </if>
+            <if test="userId != null "> and r.user_id = #{userId}</if>
+            <if test="isCustomer != null and isCustomer !='' and isCustomer =='1'.toString()">and r.customer_id IS NOT NULL</if>
+            <if test="isTrialrun != null and isTrialrun !='' and isTrialrun =='1'.toString()"> and t.id IS NOT NULL</if>
+            <if test="source != null  and source != ''"> and r.`source` = #{source}</if>
+        </where>
+        group by r.`id`
+        order by r.create_time desc
+    </select>
+
+    <select id="selectCustomerRegisterById" parameterType="Long" resultMap="CustomerRegisterResult">
+        <include refid="selectCustomerRegisterVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCustomerRegister" parameterType="CustomerRegister" useGeneratedKeys="true" keyProperty="id">
+        insert into crm_customer_register
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="phonenumber != null">phonenumber,</if>
+            <if test="wechat != null">wechat,</if>
+            <if test="times != null">times,</if>
+            <if test="type != null">type,</if>
+            <if test="purpose != null">purpose,</if>
+            <if test="intentionCarSeries != null">intention_car_series,</if>
+            <if test="intentionCarType != null">intention_car_type,</if>
+            <if test="referrer != null">referrer,</if>
+            <if test="referrerPhone != null">referrer_phone,</if>
+            <if test="referrerWechat != null">referrer_wechat,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="duration != null">duration,</if>
+            <if test="number != null">number,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="isIntroduce != null">is_introduce,</if>
+            <if test="isManagerParticipation != null">is_manager_participation,</if>
+            <if test="source != null">source,</if>
+            <if test="carType != null">car_type,</if>
+            <if test="carNo != null">car_no,</if>
+            <if test="customerId != null">customer_id,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="phonenumber != null">#{phonenumber},</if>
+            <if test="wechat != null">#{wechat},</if>
+            <if test="times != null">#{times},</if>
+            <if test="type != null">#{type},</if>
+            <if test="purpose != null">#{purpose},</if>
+            <if test="intentionCarSeries != null">#{intentionCarSeries},</if>
+            <if test="intentionCarType != null">#{intentionCarType},</if>
+            <if test="referrer != null">#{referrer},</if>
+            <if test="referrerPhone != null">#{referrerPhone},</if>
+            <if test="referrerWechat != null">#{referrerWechat},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="duration != null">#{duration},</if>
+            <if test="number != null">#{number},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="isIntroduce != null">#{isIntroduce},</if>
+            <if test="isManagerParticipation != null">#{isManagerParticipation},</if>
+            <if test="source != null">#{source},</if>
+            <if test="carType != null">#{carType},</if>
+            <if test="carNo != null">#{carNo},</if>
+            <if test="customerId != null">#{customerId},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCustomerRegister" parameterType="CustomerRegister">
+        update crm_customer_register
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="phonenumber != null">phonenumber = #{phonenumber},</if>
+            <if test="wechat != null">wechat = #{wechat},</if>
+            <if test="times != null">times = #{times},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="purpose != null">purpose = #{purpose},</if>
+            <if test="intentionCarSeries != null">intention_car_series = #{intentionCarSeries},</if>
+            <if test="intentionCarType != null">intention_car_type = #{intentionCarType},</if>
+            <if test="referrer != null">referrer = #{referrer},</if>
+            <if test="referrerPhone != null">referrer_phone = #{referrerPhone},</if>
+            <if test="referrerWechat != null">referrer_wechat = #{referrerWechat},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="duration != null">duration = #{duration},</if>
+            <if test="number != null">number = #{number},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="isIntroduce != null">is_introduce = #{isIntroduce},</if>
+            <if test="isManagerParticipation != null">is_manager_participation = #{isManagerParticipation},</if>
+            <if test="source != null">source = #{source},</if>
+            <if test="carType != null">car_type = #{carType},</if>
+            <if test="carNo != null">car_no = #{carNo},</if>
+            <if test="customerId != null">customer_id = #{customerId},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCustomerRegisterById" parameterType="Long">
+        delete from crm_customer_register where id = #{id}
+    </delete>
+
+    <delete id="deleteCustomerRegisterByIds" parameterType="String">
+        delete from crm_customer_register where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

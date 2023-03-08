@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weilango.system.mapper.SysCompanyMapper">
+
+    <resultMap type="SysCompany" id="SysCompanyResult">
+        <result property="id" column="id"/>
+        <result property="cityCode" column="city_code"/>
+        <result property="cityName" column="city_name"/>
+        <result property="companyId" column="company_id"/>
+        <result property="companyName" column="company_name"/>
+        <result property="companyRegAddress" column="company_reg_address"/>
+        <result property="companyComAddress" column="company_com_address"/>
+        <result property="companyRegTime" column="company_reg_time"/>
+        <result property="companyPhone" column="company_phone"/>
+        <result property="regCapital" column="reg_capital"/>
+        <result property="identifier" column="identifier"/>
+        <result property="staffNum" column="staff_num"/>
+        <result property="legalPersonName" column="legal_person_name"/>
+        <result property="legalPersonIdcard" column="legal_person_idcard"/>
+        <result property="legalPersonPhone" column="legal_person_phone"/>
+        <result property="existBranchCompany" column="exist_branch_company"/>
+        <result property="branchCompanyNum" column="branch_company_num"/>
+        <result property="accountName" column="account_name"/>
+        <result property="accountOpenBank" column="account_open_bank"/>
+        <result property="accountNum" column="account_num"/>
+        <result property="accountPhone" column="account_phone"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="remark" column="remark"/>
+        <result property="cityCodeList" column="city_code_list"/>
+    </resultMap>
+
+    <sql id="selectSysCompanyVo">
+        select id, city_code, city_name, company_id, company_name, company_reg_address, company_com_address,
+        company_reg_time, company_phone, reg_capital, identifier, staff_num, legal_person_name, legal_person_idcard,
+        legal_person_phone, exist_branch_company, branch_company_num, account_name, account_open_bank, account_num,
+        account_phone, create_by, create_time, update_by, update_time, del_flag, remark, city_code_list from sys_company
+    </sql>
+
+    <select id="selectSysCompanyList" parameterType="SysCompany" resultMap="SysCompanyResult">
+        <include refid="selectSysCompanyVo"/>
+        <where>
+            <if test="cityCode != null ">and city_code = #{cityCode}</if>
+            <if test="cityName != null  and cityName != ''">and city_name like concat('%', #{cityName}, '%')</if>
+            <if test="companyId != null  and companyId != ''">and company_id = #{companyId}</if>
+            <if test="companyName != null  and companyName != ''">and company_name like concat('%', #{companyName},
+                '%')
+            </if>
+            <if test="companyRegAddress != null  and companyRegAddress != ''">and company_reg_address =
+                #{companyRegAddress}
+            </if>
+            <if test="companyComAddress != null  and companyComAddress != ''">and company_com_address =
+                #{companyComAddress}
+            </if>
+            <if test="companyRegTime != null ">and company_reg_time = #{companyRegTime}</if>
+            <if test="companyPhone != null  and companyPhone != ''">and company_phone = #{companyPhone}</if>
+            <if test="regCapital != null ">and reg_capital = #{regCapital}</if>
+            <if test="identifier != null  and identifier != ''">and identifier = #{identifier}</if>
+            <if test="staffNum != null  and staffNum != ''">and staff_num = #{staffNum}</if>
+            <if test="legalPersonName != null  and legalPersonName != ''">and legal_person_name like concat('%',
+                #{legalPersonName}, '%')
+            </if>
+            <if test="legalPersonIdcard != null  and legalPersonIdcard != ''">and legal_person_idcard =
+                #{legalPersonIdcard}
+            </if>
+            <if test="legalPersonPhone != null  and legalPersonPhone != ''">and legal_person_phone =
+                #{legalPersonPhone}
+            </if>
+            <if test="existBranchCompany != null  and existBranchCompany != ''">and exist_branch_company =
+                #{existBranchCompany}
+            </if>
+            <if test="branchCompanyNum != null ">and branch_company_num = #{branchCompanyNum}</if>
+            <if test="accountName != null  and accountName != ''">and account_name like concat('%', #{accountName},
+                '%')
+            </if>
+            <if test="accountOpenBank != null  and accountOpenBank != ''">and account_open_bank = #{accountOpenBank}
+            </if>
+            <if test="accountNum != null  and accountNum != ''">and account_num = #{accountNum}</if>
+            <if test="accountPhone != null  and accountPhone != ''">and account_phone = #{accountPhone}</if>
+            <if test="cityCodeList != null  and cityCodeList != ''">and city_code_list = #{cityCodeList}</if>
+        </where>
+    </select>
+
+    <select id="selectSysCompanyById" parameterType="String" resultMap="SysCompanyResult">
+        <include refid="selectSysCompanyVo"/>
+        where company_id = #{companyId}
+    </select>
+
+    <insert id="insertSysCompany" parameterType="SysCompany" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_company
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cityCode != null">city_code,</if>
+            <if test="cityName != null">city_name,</if>
+            <if test="companyId != null">company_id,</if>
+            <if test="companyName != null">company_name,</if>
+            <if test="companyRegAddress != null">company_reg_address,</if>
+            <if test="companyComAddress != null">company_com_address,</if>
+            <if test="companyRegTime != null">company_reg_time,</if>
+            <if test="companyPhone != null">company_phone,</if>
+            <if test="regCapital != null">reg_capital,</if>
+            <if test="identifier != null">identifier,</if>
+            <if test="staffNum != null">staff_num,</if>
+            <if test="legalPersonName != null">legal_person_name,</if>
+            <if test="legalPersonIdcard != null">legal_person_idcard,</if>
+            <if test="legalPersonPhone != null">legal_person_phone,</if>
+            <if test="existBranchCompany != null">exist_branch_company,</if>
+            <if test="branchCompanyNum != null">branch_company_num,</if>
+            <if test="accountName != null">account_name,</if>
+            <if test="accountOpenBank != null">account_open_bank,</if>
+            <if test="accountNum != null">account_num,</if>
+            <if test="accountPhone != null">account_phone,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="remark != null">remark,</if>
+            <if test="cityCodeList != null">city_code_list,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cityCode != null">#{cityCode},</if>
+            <if test="cityName != null">#{cityName},</if>
+            <if test="companyId != null">#{companyId},</if>
+            <if test="companyName != null">#{companyName},</if>
+            <if test="companyRegAddress != null">#{companyRegAddress},</if>
+            <if test="companyComAddress != null">#{companyComAddress},</if>
+            <if test="companyRegTime != null">#{companyRegTime},</if>
+            <if test="companyPhone != null">#{companyPhone},</if>
+            <if test="regCapital != null">#{regCapital},</if>
+            <if test="identifier != null">#{identifier},</if>
+            <if test="staffNum != null">#{staffNum},</if>
+            <if test="legalPersonName != null">#{legalPersonName},</if>
+            <if test="legalPersonIdcard != null">#{legalPersonIdcard},</if>
+            <if test="legalPersonPhone != null">#{legalPersonPhone},</if>
+            <if test="existBranchCompany != null">#{existBranchCompany},</if>
+            <if test="branchCompanyNum != null">#{branchCompanyNum},</if>
+            <if test="accountName != null">#{accountName},</if>
+            <if test="accountOpenBank != null">#{accountOpenBank},</if>
+            <if test="accountNum != null">#{accountNum},</if>
+            <if test="accountPhone != null">#{accountPhone},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="cityCodeList != null">#{cityCodeList},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysCompany" parameterType="SysCompany">
+        update sys_company
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="cityCode != null">city_code = #{cityCode},</if>
+            <if test="cityName != null">city_name = #{cityName},</if>
+            <if test="companyId != null">company_id = #{companyId},</if>
+            <if test="companyName != null">company_name = #{companyName},</if>
+            <if test="companyRegAddress != null">company_reg_address = #{companyRegAddress},</if>
+            <if test="companyComAddress != null">company_com_address = #{companyComAddress},</if>
+            <if test="companyRegTime != null">company_reg_time = #{companyRegTime},</if>
+            <if test="companyPhone != null">company_phone = #{companyPhone},</if>
+            <if test="regCapital != null">reg_capital = #{regCapital},</if>
+            <if test="identifier != null">identifier = #{identifier},</if>
+            <if test="staffNum != null">staff_num = #{staffNum},</if>
+            <if test="legalPersonName != null">legal_person_name = #{legalPersonName},</if>
+            <if test="legalPersonIdcard != null">legal_person_idcard = #{legalPersonIdcard},</if>
+            <if test="legalPersonPhone != null">legal_person_phone = #{legalPersonPhone},</if>
+            <if test="existBranchCompany != null">exist_branch_company = #{existBranchCompany},</if>
+            <if test="branchCompanyNum != null">branch_company_num = #{branchCompanyNum},</if>
+            <if test="accountName != null">account_name = #{accountName},</if>
+            <if test="accountOpenBank != null">account_open_bank = #{accountOpenBank},</if>
+            <if test="accountNum != null">account_num = #{accountNum},</if>
+            <if test="accountPhone != null">account_phone = #{accountPhone},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="cityCodeList != null">city_code_list = #{cityCodeList},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysCompanyById" parameterType="Long">
+        delete from sys_company where id = #{id}
+    </delete>
+
+    <delete id="deleteSysCompanyByIds" parameterType="String">
+        delete from sys_company where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <select id="selectAll" resultMap="SysCompanyResult">
+        <include refid="selectSysCompanyVo"/>
+
+    </select>
+</mapper>

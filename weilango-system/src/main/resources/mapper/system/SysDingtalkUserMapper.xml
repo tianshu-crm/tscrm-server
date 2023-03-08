@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysDingtalkUserMapper">
+    
+    <resultMap type="SysDingtalkUser" id="SysDingtalkUserResult">
+        <result property="id"    column="id"    />
+        <result property="userid"    column="userid"    />
+        <result property="unionid"    column="unionid"    />
+        <result property="stateCode"    column="state_code"    />
+        <result property="name"    column="name"    />
+        <result property="avatar"    column="avatar"    />
+        <result property="deptIdList"    column="dept_id_list"    />
+        <result property="deptOrderList"    column="dept_order_list"    />
+        <result property="extension"    column="extension"    />
+        <result property="leaderInDept"    column="leader_in_dept"    />
+        <result property="title"    column="title"    />
+        <result property="mobile"    column="mobile"    />
+        <result property="jobNumber"    column="job_number"    />
+        <result property="email"    column="email"    />
+        <result property="roleList"    column="role_list"    />
+        <result property="workPlace"    column="work_place"    />
+        <result property="orgEmail"    column="org_email"    />
+        <result property="managerUserid"    column="manager_userid"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectSysDingtalkUserVo">
+        select id, userid, unionid, state_code, name, avatar, dept_id_list, dept_order_list, extension, leader_in_dept, title, mobile, job_number, email, role_list, work_place, org_email, manager_userid, create_by, create_time, update_by, update_time, remark from sys_dingtalk_user
+    </sql>
+
+    <select id="selectSysDingtalkUserList" parameterType="SysDingtalkUser" resultMap="SysDingtalkUserResult">
+        <include refid="selectSysDingtalkUserVo"/>
+        <where>  
+            <if test="userid != null  and userid != ''"> and userid = #{userid}</if>
+            <if test="unionid != null  and unionid != ''"> and unionid = #{unionid}</if>
+            <if test="stateCode != null  and stateCode != ''"> and state_code = #{stateCode}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="avatar != null  and avatar != ''"> and avatar = #{avatar}</if>
+            <if test="deptIdList != null  and deptIdList != ''"> and dept_id_list = #{deptIdList}</if>
+            <if test="deptOrderList != null  and deptOrderList != ''"> and dept_order_list = #{deptOrderList}</if>
+            <if test="extension != null  and extension != ''"> and extension = #{extension}</if>
+            <if test="leaderInDept != null  and leaderInDept != ''"> and leader_in_dept = #{leaderInDept}</if>
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+            <if test="mobile != null  and mobile != ''"> and mobile = #{mobile}</if>
+            <if test="jobNumber != null  and jobNumber != ''"> and job_number = #{jobNumber}</if>
+            <if test="email != null  and email != ''"> and email = #{email}</if>
+            <if test="roleList != null  and roleList != ''"> and role_list = #{roleList}</if>
+            <if test="workPlace != null  and workPlace != ''"> and work_place = #{workPlace}</if>
+            <if test="orgEmail != null  and orgEmail != ''"> and org_email = #{orgEmail}</if>
+            <if test="managerUserid != null  and managerUserid != ''"> and manager_userid = #{managerUserid}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysDingtalkUserById" parameterType="Long" resultMap="SysDingtalkUserResult">
+        <include refid="selectSysDingtalkUserVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysDingtalkUser" parameterType="SysDingtalkUser" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_dingtalk_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userid != null">userid,</if>
+            <if test="unionid != null">unionid,</if>
+            <if test="stateCode != null">state_code,</if>
+            <if test="name != null">name,</if>
+            <if test="avatar != null">avatar,</if>
+            <if test="deptIdList != null">dept_id_list,</if>
+            <if test="deptOrderList != null">dept_order_list,</if>
+            <if test="extension != null">extension,</if>
+            <if test="leaderInDept != null">leader_in_dept,</if>
+            <if test="title != null">title,</if>
+            <if test="mobile != null">mobile,</if>
+            <if test="jobNumber != null">job_number,</if>
+            <if test="email != null">email,</if>
+            <if test="roleList != null">role_list,</if>
+            <if test="workPlace != null">work_place,</if>
+            <if test="orgEmail != null">org_email,</if>
+            <if test="managerUserid != null">manager_userid,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userid != null">#{userid},</if>
+            <if test="unionid != null">#{unionid},</if>
+            <if test="stateCode != null">#{stateCode},</if>
+            <if test="name != null">#{name},</if>
+            <if test="avatar != null">#{avatar},</if>
+            <if test="deptIdList != null">#{deptIdList},</if>
+            <if test="deptOrderList != null">#{deptOrderList},</if>
+            <if test="extension != null">#{extension},</if>
+            <if test="leaderInDept != null">#{leaderInDept},</if>
+            <if test="title != null">#{title},</if>
+            <if test="mobile != null">#{mobile},</if>
+            <if test="jobNumber != null">#{jobNumber},</if>
+            <if test="email != null">#{email},</if>
+            <if test="roleList != null">#{roleList},</if>
+            <if test="workPlace != null">#{workPlace},</if>
+            <if test="orgEmail != null">#{orgEmail},</if>
+            <if test="managerUserid != null">#{managerUserid},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysDingtalkUser" parameterType="SysDingtalkUser">
+        update sys_dingtalk_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userid != null">userid = #{userid},</if>
+            <if test="unionid != null">unionid = #{unionid},</if>
+            <if test="stateCode != null">state_code = #{stateCode},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="avatar != null">avatar = #{avatar},</if>
+            <if test="deptIdList != null">dept_id_list = #{deptIdList},</if>
+            <if test="deptOrderList != null">dept_order_list = #{deptOrderList},</if>
+            <if test="extension != null">extension = #{extension},</if>
+            <if test="leaderInDept != null">leader_in_dept = #{leaderInDept},</if>
+            <if test="title != null">title = #{title},</if>
+            <if test="mobile != null">mobile = #{mobile},</if>
+            <if test="jobNumber != null">job_number = #{jobNumber},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="roleList != null">role_list = #{roleList},</if>
+            <if test="workPlace != null">work_place = #{workPlace},</if>
+            <if test="orgEmail != null">org_email = #{orgEmail},</if>
+            <if test="managerUserid != null">manager_userid = #{managerUserid},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysDingtalkUserById" parameterType="Long">
+        delete from sys_dingtalk_user where id = #{id}
+    </delete>
+
+    <delete id="deleteSysDingtalkUserByIds" parameterType="String">
+        delete from sys_dingtalk_user where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

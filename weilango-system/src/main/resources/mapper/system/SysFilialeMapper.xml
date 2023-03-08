@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weilango.system.mapper.SysFilialeMapper">
+
+    <resultMap type="SysFiliale" id="SysFilialeResult">
+        <result property="id"    column="id"    />
+        <result property="cityCode"    column="city_code"    />
+        <result property="cityName"    column="city_name"    />
+        <result property="filialeId"    column="filiale_id"    />
+        <result property="companyId"    column="company_id"    />
+        <result property="companyName"    column="company_name"    />
+        <result property="filialeName"    column="filiale_name"    />
+        <result property="filialeAddress"    column="filiale_address"    />
+        <result property="generalManager"    column="general_manager"    />
+        <result property="filialePhone"    column="filiale_phone"    />
+        <result property="filialeRegTime"    column="filiale_reg_time"    />
+        <result property="filialeStaffNum"    column="filiale_staff_num"    />
+        <result property="filialeIdentifier"    column="filiale_identifier"    />
+        <result property="filialeOpenBank"    column="filiale_open_bank"    />
+        <result property="filialeAccountName"    column="filiale_account_name"    />
+        <result property="filialeAccountNum"    column="filiale_account_num"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="remark"    column="remark"    />
+        <result property="cityCodeList"    column="city_code_list"    />
+    </resultMap>
+
+    <sql id="selectSysFilialeVo">
+        select id, city_code, city_name, filiale_id, company_id, company_name, filiale_name, filiale_address, general_manager, filiale_phone, filiale_reg_time, filiale_staff_num, filiale_identifier, filiale_open_bank, filiale_account_name, filiale_account_num, create_time, create_by, update_by, update_time, del_flag, remark, city_code_list from sys_filiale
+    </sql>
+
+    <select id="selectSysFilialeList" parameterType="SysFiliale" resultMap="SysFilialeResult">
+        <include refid="selectSysFilialeVo"/>
+        <where>
+            <if test="cityCode != null "> and city_code = #{cityCode}</if>
+            <if test="cityName != null  and cityName != ''"> and city_name like concat('%', #{cityName}, '%')</if>
+            <if test="filialeId != null "> and filiale_id = #{filialeId}</if>
+            <if test="companyId != null  and companyId != ''"> and company_id = #{companyId}</if>
+            <if test="companyName != null  and companyName != ''"> and company_name like concat('%', #{companyName}, '%')</if>
+            <if test="filialeName != null  and filialeName != ''"> and filiale_name like concat('%', #{filialeName}, '%')</if>
+            <if test="filialeAddress != null  and filialeAddress != ''"> and filiale_address = #{filialeAddress}</if>
+            <if test="generalManager != null  and generalManager != ''"> and general_manager = #{generalManager}</if>
+            <if test="filialePhone != null  and filialePhone != ''"> and filiale_phone = #{filialePhone}</if>
+            <if test="filialeRegTime != null "> and filiale_reg_time = #{filialeRegTime}</if>
+            <if test="filialeStaffNum != null  and filialeStaffNum != ''"> and filiale_staff_num = #{filialeStaffNum}</if>
+            <if test="filialeIdentifier != null  and filialeIdentifier != ''"> and filiale_identifier = #{filialeIdentifier}</if>
+            <if test="filialeOpenBank != null  and filialeOpenBank != ''"> and filiale_open_bank = #{filialeOpenBank}</if>
+            <if test="filialeAccountName != null  and filialeAccountName != ''"> and filiale_account_name like concat('%', #{filialeAccountName}, '%')</if>
+            <if test="filialeAccountNum != null  and filialeAccountNum != ''"> and filiale_account_num = #{filialeAccountNum}</if>
+            <if test="cityCodeList != null  and cityCodeList != ''"> and city_code_list = #{cityCodeList}</if>
+        </where>
+    </select>
+
+    <select id="selectSysFilialeById" parameterType="String" resultMap="SysFilialeResult">
+        <include refid="selectSysFilialeVo"/>
+        where filiale_id = #{filialeId}
+    </select>
+
+    <insert id="insertSysFiliale" parameterType="SysFiliale" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_filiale
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cityCode != null">city_code,</if>
+            <if test="cityName != null and cityName != ''">city_name,</if>
+            <if test="filialeId != null">filiale_id,</if>
+            <if test="companyId != null and companyId != ''">company_id,</if>
+            <if test="companyName != null and companyName != ''">company_name,</if>
+            <if test="filialeName != null and filialeName != ''">filiale_name,</if>
+            <if test="filialeAddress != null and filialeAddress != ''">filiale_address,</if>
+            <if test="generalManager != null and generalManager != ''">general_manager,</if>
+            <if test="filialePhone != null and filialePhone != ''">filiale_phone,</if>
+            <if test="filialeRegTime != null">filiale_reg_time,</if>
+            <if test="filialeStaffNum != null">filiale_staff_num,</if>
+            <if test="filialeIdentifier != null and filialeIdentifier != ''">filiale_identifier,</if>
+            <if test="filialeOpenBank != null and filialeOpenBank != ''">filiale_open_bank,</if>
+            <if test="filialeAccountName != null">filiale_account_name,</if>
+            <if test="filialeAccountNum != null and filialeAccountNum != ''">filiale_account_num,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null and delFlag != ''">del_flag,</if>
+            <if test="remark != null">remark,</if>
+            <if test="cityCodeList != null">city_code_list,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cityCode != null">#{cityCode},</if>
+            <if test="cityName != null and cityName != ''">#{cityName},</if>
+            <if test="filialeId != null">#{filialeId},</if>
+            <if test="companyId != null and companyId != ''">#{companyId},</if>
+            <if test="companyName != null and companyName != ''">#{companyName},</if>
+            <if test="filialeName != null and filialeName != ''">#{filialeName},</if>
+            <if test="filialeAddress != null and filialeAddress != ''">#{filialeAddress},</if>
+            <if test="generalManager != null and generalManager != ''">#{generalManager},</if>
+            <if test="filialePhone != null and filialePhone != ''">#{filialePhone},</if>
+            <if test="filialeRegTime != null">#{filialeRegTime},</if>
+            <if test="filialeStaffNum != null">#{filialeStaffNum},</if>
+            <if test="filialeIdentifier != null and filialeIdentifier != ''">#{filialeIdentifier},</if>
+            <if test="filialeOpenBank != null and filialeOpenBank != ''">#{filialeOpenBank},</if>
+            <if test="filialeAccountName != null">#{filialeAccountName},</if>
+            <if test="filialeAccountNum != null and filialeAccountNum != ''">#{filialeAccountNum},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null and delFlag != ''">#{delFlag},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="cityCodeList != null">#{cityCodeList},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysFiliale" parameterType="SysFiliale">
+        update sys_filiale
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="cityCode != null">city_code = #{cityCode},</if>
+            <if test="cityName != null and cityName != ''">city_name = #{cityName},</if>
+            <if test="filialeId != null">filiale_id = #{filialeId},</if>
+            <if test="companyId != null and companyId != ''">company_id = #{companyId},</if>
+            <if test="companyName != null and companyName != ''">company_name = #{companyName},</if>
+            <if test="filialeName != null and filialeName != ''">filiale_name = #{filialeName},</if>
+            <if test="filialeAddress != null and filialeAddress != ''">filiale_address = #{filialeAddress},</if>
+            <if test="generalManager != null and generalManager != ''">general_manager = #{generalManager},</if>
+            <if test="filialePhone != null and filialePhone != ''">filiale_phone = #{filialePhone},</if>
+            <if test="filialeRegTime != null">filiale_reg_time = #{filialeRegTime},</if>
+            <if test="filialeStaffNum != null">filiale_staff_num = #{filialeStaffNum},</if>
+            <if test="filialeIdentifier != null and filialeIdentifier != ''">filiale_identifier = #{filialeIdentifier},</if>
+            <if test="filialeOpenBank != null and filialeOpenBank != ''">filiale_open_bank = #{filialeOpenBank},</if>
+            <if test="filialeAccountName != null">filiale_account_name = #{filialeAccountName},</if>
+            <if test="filialeAccountNum != null and filialeAccountNum != ''">filiale_account_num = #{filialeAccountNum},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="cityCodeList != null">city_code_list = #{cityCodeList},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysFilialeById" parameterType="Long">
+        delete from sys_filiale where id = #{id}
+    </delete>
+
+    <delete id="deleteSysFilialeByIds" parameterType="String">
+        delete from sys_filiale where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

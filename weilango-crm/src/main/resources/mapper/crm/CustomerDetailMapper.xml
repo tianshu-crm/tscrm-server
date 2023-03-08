@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weilango.crm.mapper.CustomerDetailMapper">
+
+    <resultMap type="CustomerDetail" id="CustomerDetailResult">
+        <result property="id"    column="id"    />
+        <result property="customerId"    column="customer_id"    />
+        <result property="certificateType"    column="certificate_type"    />
+        <result property="certificateNo"    column="certificate_no"    />
+        <result property="intentionCarSeries"    column="intention_car_series"    />
+        <result property="intentionCarType"    column="intention_car_type"    />
+        <result property="purchaseCarType"    column="purchase_car_type"    />
+        <result property="purchaseCarBudget"    column="purchase_car_budget"    />
+        <result property="purchaseCarTime"    column="purchase_car_time"    />
+        <result property="isOnlineCarUser"    column="is_online_car_user"    />
+        <result property="isCertificate"    column="is_certificate"    />
+        <result property="intentionDesc"    column="intention_desc"    />
+        <result property="competeCompany"    column="compete_company"    />
+        <result property="competeDesc"    column="compete_desc"    />
+        <result property="competeCar"    column="compete_car"    />
+        <result property="desc"    column="desc"    />
+        <result property="isFile"    column="is_file"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectCustomerDetailVo">
+        select id, customer_id, certificate_type, certificate_no, intention_car_series, intention_car_type, purchase_car_type, purchase_car_budget, purchase_car_time, is_online_car_user, is_certificate, intention_desc, compete_company, compete_desc, compete_car, desc, is_file, del_flag, create_by, create_time, update_by, update_time, remark from crm_customer_detail
+    </sql>
+
+    <select id="selectCustomerDetailList" parameterType="CustomerDetail" resultMap="CustomerDetailResult">
+        <include refid="selectCustomerDetailVo"/>
+        <where>
+            <if test="customerId != null "> and customer_id = #{customerId}</if>
+            <if test="certificateType != null  and certificateType != ''"> and certificate_type = #{certificateType}</if>
+            <if test="certificateNo != null  and certificateNo != ''"> and certificate_no = #{certificateNo}</if>
+            <if test="intentionCarSeries != null  and intentionCarSeries != ''"> and intention_car_series = #{intentionCarSeries}</if>
+            <if test="intentionCarType != null  and intentionCarType != ''"> and intention_car_type = #{intentionCarType}</if>
+            <if test="purchaseCarType != null  and purchaseCarType != ''"> and purchase_car_type = #{purchaseCarType}</if>
+            <if test="purchaseCarBudget != null  and purchaseCarBudget != ''"> and purchase_car_budget = #{purchaseCarBudget}</if>
+            <if test="purchaseCarTime != null "> and purchase_car_time = #{purchaseCarTime}</if>
+            <if test="isOnlineCarUser != null  and isOnlineCarUser != ''"> and is_online_car_user = #{isOnlineCarUser}</if>
+            <if test="isCertificate != null  and isCertificate != ''"> and is_certificate = #{isCertificate}</if>
+            <if test="intentionDesc != null  and intentionDesc != ''"> and intention_desc = #{intentionDesc}</if>
+            <if test="competeCompany != null  and competeCompany != ''"> and compete_company = #{competeCompany}</if>
+            <if test="competeDesc != null  and competeDesc != ''"> and compete_desc = #{competeDesc}</if>
+            <if test="competeCar != null  and competeCar != ''"> and compete_car = #{competeCar}</if>
+            <if test="desc != null  and desc != ''"> and desc = #{desc}</if>
+            <if test="isFile != null  and isFile != ''"> and is_file = #{isFile}</if>
+        </where>
+    </select>
+
+    <select id="selectCustomerDetailById" parameterType="Long" resultMap="CustomerDetailResult">
+        <include refid="selectCustomerDetailVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCustomerDetail" parameterType="CustomerDetail">
+        insert into crm_customer_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="customerId != null">customer_id,</if>
+            <if test="certificateType != null">certificate_type,</if>
+            <if test="certificateNo != null">certificate_no,</if>
+            <if test="intentionCarSeries != null">intention_car_series,</if>
+            <if test="intentionCarType != null">intention_car_type,</if>
+            <if test="purchaseCarType != null">purchase_car_type,</if>
+            <if test="purchaseCarBudget != null">purchase_car_budget,</if>
+            <if test="purchaseCarTime != null">purchase_car_time,</if>
+            <if test="isOnlineCarUser != null">is_online_car_user,</if>
+            <if test="isCertificate != null">is_certificate,</if>
+            <if test="intentionDesc != null">intention_desc,</if>
+            <if test="competeCompany != null">compete_company,</if>
+            <if test="competeDesc != null">compete_desc,</if>
+            <if test="competeCar != null">compete_car,</if>
+            <if test="desc != null">desc,</if>
+            <if test="isFile != null">is_file,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="customerId != null">#{customerId},</if>
+            <if test="certificateType != null">#{certificateType},</if>
+            <if test="certificateNo != null">#{certificateNo},</if>
+            <if test="intentionCarSeries != null">#{intentionCarSeries},</if>
+            <if test="intentionCarType != null">#{intentionCarType},</if>
+            <if test="purchaseCarType != null">#{purchaseCarType},</if>
+            <if test="purchaseCarBudget != null">#{purchaseCarBudget},</if>
+            <if test="purchaseCarTime != null">#{purchaseCarTime},</if>
+            <if test="isOnlineCarUser != null">#{isOnlineCarUser},</if>
+            <if test="isCertificate != null">#{isCertificate},</if>
+            <if test="intentionDesc != null">#{intentionDesc},</if>
+            <if test="competeCompany != null">#{competeCompany},</if>
+            <if test="competeDesc != null">#{competeDesc},</if>
+            <if test="competeCar != null">#{competeCar},</if>
+            <if test="desc != null">#{desc},</if>
+            <if test="isFile != null">#{isFile},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCustomerDetail" parameterType="CustomerDetail">
+        update crm_customer_detail
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="customerId != null">customer_id = #{customerId},</if>
+            <if test="certificateType != null">certificate_type = #{certificateType},</if>
+            <if test="certificateNo != null">certificate_no = #{certificateNo},</if>
+            <if test="intentionCarSeries != null">intention_car_series = #{intentionCarSeries},</if>
+            <if test="intentionCarType != null">intention_car_type = #{intentionCarType},</if>
+            <if test="purchaseCarType != null">purchase_car_type = #{purchaseCarType},</if>
+            <if test="purchaseCarBudget != null">purchase_car_budget = #{purchaseCarBudget},</if>
+            <if test="purchaseCarTime != null">purchase_car_time = #{purchaseCarTime},</if>
+            <if test="isOnlineCarUser != null">is_online_car_user = #{isOnlineCarUser},</if>
+            <if test="isCertificate != null">is_certificate = #{isCertificate},</if>
+            <if test="intentionDesc != null">intention_desc = #{intentionDesc},</if>
+            <if test="competeCompany != null">compete_company = #{competeCompany},</if>
+            <if test="competeDesc != null">compete_desc = #{competeDesc},</if>
+            <if test="competeCar != null">compete_car = #{competeCar},</if>
+            <if test="desc != null">desc = #{desc},</if>
+            <if test="isFile != null">is_file = #{isFile},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCustomerDetailById" parameterType="Long">
+        delete from crm_customer_detail where id = #{id}
+    </delete>
+
+    <delete id="deleteCustomerDetailByIds" parameterType="String">
+        delete from crm_customer_detail where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

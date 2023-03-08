@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysDingtalkRoleMapper">
+    
+    <resultMap type="SysDingtalkRole" id="SysDingtalkRoleResult">
+        <result property="id"    column="id"    />
+        <result property="groupId"    column="group_id"    />
+        <result property="groupName"    column="group_name"    />
+        <result property="roleId"    column="role_id"    />
+        <result property="name"    column="name"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectSysDingtalkRoleVo">
+        select id, group_id, group_name, role_id, name, del_flag, create_by, create_time, update_by, update_time, remark from sys_dingtalk_role
+    </sql>
+
+    <select id="selectSysDingtalkRoleList" parameterType="SysDingtalkRole" resultMap="SysDingtalkRoleResult">
+        <include refid="selectSysDingtalkRoleVo"/>
+        <where>  
+            <if test="groupId != null "> and group_id = #{groupId}</if>
+            <if test="groupName != null  and groupName != ''"> and group_name like concat('%', #{groupName}, '%')</if>
+            <if test="roleId != null "> and role_id = #{roleId}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectSysDingtalkRoleById" parameterType="Long" resultMap="SysDingtalkRoleResult">
+        <include refid="selectSysDingtalkRoleVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysDingtalkRole" parameterType="SysDingtalkRole" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_dingtalk_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="groupId != null">group_id,</if>
+            <if test="groupName != null">group_name,</if>
+            <if test="roleId != null">role_id,</if>
+            <if test="name != null">name,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="groupId != null">#{groupId},</if>
+            <if test="groupName != null">#{groupName},</if>
+            <if test="roleId != null">#{roleId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysDingtalkRole" parameterType="SysDingtalkRole">
+        update sys_dingtalk_role
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="groupId != null">group_id = #{groupId},</if>
+            <if test="groupName != null">group_name = #{groupName},</if>
+            <if test="roleId != null">role_id = #{roleId},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysDingtalkRoleById" parameterType="Long">
+        delete from sys_dingtalk_role where id = #{id}
+    </delete>
+
+    <delete id="deleteSysDingtalkRoleByIds" parameterType="String">
+        delete from sys_dingtalk_role where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

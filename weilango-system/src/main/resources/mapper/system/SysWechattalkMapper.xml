@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weilango.system.ISysWechattalkMapper">
+
+    <resultMap type="com.weilango.system.domain.vo.SysWechattalkDept" id="SysWechattalkDeptResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="parentId"    column="parent_id"    />
+        <result property="order"    column="order"    />
+        <result property="departmentLeader"    column="department_leader"    />
+    </resultMap>
+
+    <insert id="insertSysCompany" parameterType="com.weilango.system.domain.vo.SysWechattalkDept" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_wechattalk_dept
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+    <if test="Id != null and Id != 0">id,</if>
+    <if test="Name != null and Name != ''">name,</if>
+    <if test="parentId != null and parentId != 0">parent_id,</if>
+    <if test="order != null">order,</if>
+    <if test="departmentLeader!= null ">department_leader,</if>
+    </trim>
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+    <if test="Id != null and Id != 0">{id},</if>
+    <if test="Name != null and Name != ''">{name},</if>
+    <if test="parentId != null and parentId != 0">{parentId},</if>
+    <if test="order != null">{order},</if>
+    <if test="departmentLeader!= null ">{departmentLeader},</if>
+    </trim>
+</insert>
+
+</mapper>

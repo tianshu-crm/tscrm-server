@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weilango.system.mapper.SysTaskMapper">
+
+    <resultMap type="SysTask" id="SysTaskResult">
+        <result property="id"    column="id"    />
+        <result property="processorId"    column="processor_id"    />
+        <result property="title"    column="title"    />
+        <result property="type"    column="type"    />
+        <result property="businessType"    column="business_type"    />
+        <result property="businessId"    column="business_id"    />
+        <result property="sponsorUserId"    column="sponsor_user_id"    />
+        <result property="sponsorUserName"    column="sponsor_user_name"    />
+        <result property="affiliatedUnit"    column="affiliated_unit"    />
+        <result property="sponsorTime"    column="sponsor_time"    />
+        <result property="approvalLeaveMsg"    column="approval_leave_msg"    />
+        <result property="approvalTime"    column="approval_time"    />
+        <result property="approvalStatus"    column="approval_status"    />
+        <result property="detail"    column="detail"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectSysTaskVo">
+        select id, processor_id, title, type, business_type, business_id, sponsor_user_id, sponsor_user_name, affiliated_unit, sponsor_time, approval_leave_msg, approval_time, approval_status, detail, create_by, create_time, update_by, update_time, del_flag, remark from sys_task
+    </sql>
+
+    <select id="selectSysTaskList" parameterType="SysTask" resultMap="SysTaskResult">
+        <include refid="selectSysTaskVo"/>
+        <where>
+            <if test="processorId != null "> and processor_id = #{processorId}</if>
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="businessType != null  and businessType != ''"> and business_type = #{businessType}</if>
+            <if test="businessId != null "> and business_id = #{businessId}</if>
+            <if test="sponsorUserId != null "> and sponsor_user_id = #{sponsorUserId}</if>
+            <if test="sponsorUserName != null  and sponsorUserName != ''"> and sponsor_user_name like concat('%', #{sponsorUserName}, '%')</if>
+            <if test="affiliatedUnit != null  and affiliatedUnit != ''"> and affiliated_unit = #{affiliatedUnit}</if>
+            <if test="sponsorTime != null "> and sponsor_time = #{sponsorTime}</if>
+            <if test="approvalLeaveMsg != null  and approvalLeaveMsg != ''"> and approval_leave_msg = #{approvalLeaveMsg}</if>
+            <if test="approvalTime != null "> and approval_time = #{approvalTime}</if>
+            <if test="approvalStatus != null  and approvalStatus != ''"> and approval_status = #{approvalStatus}</if>
+            <if test="detail != null  and detail != ''"> and detail = #{detail}</if>
+        </where>
+    </select>
+
+    <select id="selectSysTaskById" parameterType="Long" resultMap="SysTaskResult">
+        <include refid="selectSysTaskVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertSysTask" parameterType="SysTask" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_task
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="processorId != null">processor_id,</if>
+            <if test="title != null and title != ''">title,</if>
+            <if test="type != null and type != ''">type,</if>
+            <if test="businessType != null and businessType != ''">business_type,</if>
+            <if test="businessId != null">business_id,</if>
+            <if test="sponsorUserId != null">sponsor_user_id,</if>
+            <if test="sponsorUserName != null and sponsorUserName != ''">sponsor_user_name,</if>
+            <if test="affiliatedUnit != null and affiliatedUnit != ''">affiliated_unit,</if>
+            <if test="sponsorTime != null">sponsor_time,</if>
+            <if test="approvalLeaveMsg != null">approval_leave_msg,</if>
+            <if test="approvalTime != null">approval_time,</if>
+            <if test="approvalStatus != null">approval_status,</if>
+            <if test="detail != null">detail,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="delFlag != null and delFlag != ''">del_flag,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="processorId != null">#{processorId},</if>
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="type != null and type != ''">#{type},</if>
+            <if test="businessType != null and businessType != ''">#{businessType},</if>
+            <if test="businessId != null">#{businessId},</if>
+            <if test="sponsorUserId != null">#{sponsorUserId},</if>
+            <if test="sponsorUserName != null and sponsorUserName != ''">#{sponsorUserName},</if>
+            <if test="affiliatedUnit != null and affiliatedUnit != ''">#{affiliatedUnit},</if>
+            <if test="sponsorTime != null">#{sponsorTime},</if>
+            <if test="approvalLeaveMsg != null">#{approvalLeaveMsg},</if>
+            <if test="approvalTime != null">#{approvalTime},</if>
+            <if test="approvalStatus != null">#{approvalStatus},</if>
+            <if test="detail != null">#{detail},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="delFlag != null and delFlag != ''">#{delFlag},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysTask" parameterType="SysTask">
+        update sys_task
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="processorId != null">processor_id = #{processorId},</if>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="type != null and type != ''">type = #{type},</if>
+            <if test="businessType != null and businessType != ''">business_type = #{businessType},</if>
+            <if test="businessId != null">business_id = #{businessId},</if>
+            <if test="sponsorUserId != null">sponsor_user_id = #{sponsorUserId},</if>
+            <if test="sponsorUserName != null and sponsorUserName != ''">sponsor_user_name = #{sponsorUserName},</if>
+            <if test="affiliatedUnit != null and affiliatedUnit != ''">affiliated_unit = #{affiliatedUnit},</if>
+            <if test="sponsorTime != null">sponsor_time = #{sponsorTime},</if>
+            <if test="approvalLeaveMsg != null">approval_leave_msg = #{approvalLeaveMsg},</if>
+            <if test="approvalTime != null">approval_time = #{approvalTime},</if>
+            <if test="approvalStatus != null">approval_status = #{approvalStatus},</if>
+            <if test="detail != null">detail = #{detail},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="delFlag != null and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysTaskById" parameterType="Long">
+        delete from sys_task where id = #{id}
+    </delete>
+
+    <delete id="deleteSysTaskByIds" parameterType="String">
+        delete from sys_task where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>weilango</artifactId>
+        <groupId>com.weilango</groupId>
+        <version>3.8.4</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>weilango-crm</artifactId>
+
+    <description>
+        crm系统模块
+    </description>
+
+    <dependencies>
+
+        <!-- 通用工具-->
+        <dependency>
+            <groupId>com.weilango</groupId>
+            <artifactId>weilango-common</artifactId>
+        </dependency>
+
+        <!-- 系统管理-->
+        <dependency>
+            <groupId>com.weilango</groupId>
+            <artifactId>weilango-system</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>

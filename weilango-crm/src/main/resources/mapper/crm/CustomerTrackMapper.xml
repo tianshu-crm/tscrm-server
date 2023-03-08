@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weilango.crm.mapper.CustomerTrackMapper">
+
+    <resultMap type="CustomerTrack" id="CustomerTrackResult">
+        <result property="id"    column="id"    />
+        <result property="customerId"    column="customer_id"    />
+        <result property="type"    column="type"    />
+        <result property="callDuration"    column="call_duration"    />
+        <result property="content"    column="content"    />
+        <result property="nextTime"    column="next_time"    />
+        <result property="nextContent"    column="next_content"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectCustomerTrackVo">
+        select id, customer_id, type, call_duration, content, next_time, next_content, del_flag, create_by, create_time, update_by, update_time, remark from crm_customer_track
+    </sql>
+
+    <select id="selectCustomerTrackList" parameterType="CustomerTrack" resultType="map">
+        SELECT
+        t.`id` trackId
+        ,dt.`dict_label` type
+        ,DATE_FORMAT(t.`create_time`,'%Y-%m-%d %H:%i:%s') createTime
+        ,t.`call_duration` callDuration
+        ,t.`create_by` createBy
+        ,t.`content`
+        FROM `crm_customer_track` t
+        LEFT JOIN `sys_dict_data` dt ON dt.`dict_type` = 'crm_customer_followtype' AND dt.`dict_value`=t.`type`
+        <where>
+            t.`del_flag` =0
+            <if test="customerId != null "> and t.customer_id = #{customerId}</if>
+            <if test="type != null  and type != ''"> and t.type = #{type}</if>
+            <if test="trackDate != null and trackDate != ''"> and DATE_FORMAT(t.`create_time`,'%Y-%m-%d') = #{trackDate}</if>
+        </where>
+        order by t.create_time desc
+    </select>
+
+    <select id="selectCustomerTrackById" parameterType="Long" resultMap="CustomerTrackResult">
+        <include refid="selectCustomerTrackVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCustomerTrack" parameterType="CustomerTrack">
+        insert into crm_customer_track
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="customerId != null">customer_id,</if>
+            <if test="type != null">type,</if>
+            <if test="callDuration != null">call_duration,</if>
+            <if test="content != null">content,</if>
+            <if test="nextTime != null">next_time,</if>
+            <if test="nextContent != null">next_content,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="customerId != null">#{customerId},</if>
+            <if test="type != null">#{type},</if>
+            <if test="callDuration != null">#{callDuration},</if>
+            <if test="content != null">#{content},</if>
+            <if test="nextTime != null">#{nextTime},</if>
+            <if test="nextContent != null">#{nextContent},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCustomerTrack" parameterType="CustomerTrack">
+        update crm_customer_track
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="customerId != null">customer_id = #{customerId},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="callDuration != null">call_duration = #{callDuration},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="nextTime != null">next_time = #{nextTime},</if>
+            <if test="nextContent != null">next_content = #{nextContent},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCustomerTrackById" parameterType="Long">
+        delete from crm_customer_track where id = #{id}
+    </delete>
+
+    <delete id="deleteCustomerTrackByIds" parameterType="String">
+        delete from crm_customer_track where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

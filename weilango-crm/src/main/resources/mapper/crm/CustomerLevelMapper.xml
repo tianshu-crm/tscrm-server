@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weilango.crm.mapper.CustomerLevelMapper">
+
+    <resultMap type="CustomerLevel" id="CustomerLevelResult">
+        <result property="id"    column="id"    />
+        <result property="orgLevel"    column="org_level"    />
+        <result property="level"    column="level"    />
+        <result property="reason"    column="reason"    />
+        <result property="customerId"    column="customer_id"    />
+        <result property="nextTime"    column="next_time"    />
+        <result property="auditStatus"    column="audit_status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectCustomerLevelVo">
+        select id, org_level, level, reason, customer_id, next_time, audit_status, del_flag, create_by, create_time, update_by, update_time, remark from crm_customer_level
+    </sql>
+
+    <select id="selectCustomerLevelList" parameterType="CustomerLevel" resultMap="CustomerLevelResult">
+        <include refid="selectCustomerLevelVo"/>
+        <where>
+            <if test="orgLevel != null  and orgLevel != ''"> and org_level = #{orgLevel}</if>
+            <if test="level != null  and level != ''"> and level = #{level}</if>
+            <if test="reason != null  and reason != ''"> and reason = #{reason}</if>
+            <if test="customerId != null "> and customer_id = #{customerId}</if>
+            <if test="nextTime != null "> and next_time = #{nextTime}</if>
+            <if test="auditStatus != null  and auditStatus != ''"> and audit_status = #{auditStatus}</if>
+        </where>
+    </select>
+
+    <select id="selectCustomerLevelById" parameterType="Long" resultMap="CustomerLevelResult">
+        <include refid="selectCustomerLevelVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCustomerLevel" parameterType="CustomerLevel">
+        insert into crm_customer_level
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="orgLevel != null">org_level,</if>
+            <if test="level != null">level,</if>
+            <if test="reason != null">reason,</if>
+            <if test="customerId != null">customer_id,</if>
+            <if test="nextTime != null">next_time,</if>
+            <if test="auditStatus != null">audit_status,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="orgLevel != null">#{orgLevel},</if>
+            <if test="level != null">#{level},</if>
+            <if test="reason != null">#{reason},</if>
+            <if test="customerId != null">#{customerId},</if>
+            <if test="nextTime != null">#{nextTime},</if>
+            <if test="auditStatus != null">#{auditStatus},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCustomerLevel" parameterType="CustomerLevel">
+        update crm_customer_level
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orgLevel != null">org_level = #{orgLevel},</if>
+            <if test="level != null">level = #{level},</if>
+            <if test="reason != null">reason = #{reason},</if>
+            <if test="customerId != null">customer_id = #{customerId},</if>
+            <if test="nextTime != null">next_time = #{nextTime},</if>
+            <if test="auditStatus != null">audit_status = #{auditStatus},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCustomerLevelById" parameterType="Long">
+        delete from crm_customer_level where id = #{id}
+    </delete>
+
+    <delete id="deleteCustomerLevelByIds" parameterType="String">
+        delete from crm_customer_level where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

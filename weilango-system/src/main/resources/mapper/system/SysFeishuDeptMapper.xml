@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weilango.system.mapper.SysFeishuDeptMapper">
+    
+    <resultMap type="SysFeishuDept" id="SysFeishuDeptResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="departmentId"    column="department_id"    />
+        <result property="parentDepartmentId"    column="parent_department_id"    />
+        <result property="openDepartmentId"    column="open_department_id"    />
+        <result property="leaderUserId"    column="leader_user_id"    />
+        <result property="memberCount"    column="member_count"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectSysFeishuDeptVo">
+        select id, name, department_id, parent_department_id, open_department_id, leader_user_id, member_count, del_flag, create_by, create_time, update_by, update_time, remark from sys_feishu_dept
+    </sql>
+
+    <select id="selectSysFeishuDeptList" parameterType="SysFeishuDept" resultMap="SysFeishuDeptResult">
+        <include refid="selectSysFeishuDeptVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="departmentId != null "> and department_id = #{departmentId}</if>
+            <if test="parentDepartmentId != null "> and parent_department_id = #{parentDepartmentId}</if>
+            <if test="openDepartmentId != null "> and open_department_id = #{openDepartmentId}</if>
+            <if test="leaderUserId != null "> and leader_user_id = #{leaderUserId}</if>
+            <if test="memberCount != null "> and member_count = #{memberCount}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysFeishuDeptById" parameterType="Long" resultMap="SysFeishuDeptResult">
+        <include refid="selectSysFeishuDeptVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysFeishuDept" parameterType="SysFeishuDept" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_feishu_dept
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="departmentId != null">department_id,</if>
+            <if test="parentDepartmentId != null">parent_department_id,</if>
+            <if test="openDepartmentId != null">open_department_id,</if>
+            <if test="leaderUserId != null">leader_user_id,</if>
+            <if test="memberCount != null">member_count,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="departmentId != null">#{departmentId},</if>
+            <if test="parentDepartmentId != null">#{parentDepartmentId},</if>
+            <if test="openDepartmentId != null">#{openDepartmentId},</if>
+            <if test="leaderUserId != null">#{leaderUserId},</if>
+            <if test="memberCount != null">#{memberCount},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysFeishuDept" parameterType="SysFeishuDept">
+        update sys_feishu_dept
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="departmentId != null">department_id = #{departmentId},</if>
+            <if test="parentDepartmentId != null">parent_department_id = #{parentDepartmentId},</if>
+            <if test="openDepartmentId != null">open_department_id = #{openDepartmentId},</if>
+            <if test="leaderUserId != null">leader_user_id = #{leaderUserId},</if>
+            <if test="memberCount != null">member_count = #{memberCount},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysFeishuDeptById" parameterType="Long">
+        delete from sys_feishu_dept where id = #{id}
+    </delete>
+
+    <delete id="deleteSysFeishuDeptByIds" parameterType="String">
+        delete from sys_feishu_dept where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
