@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.weilango.system.mapper.SysRoleMapper">
+<mapper namespace="com.tianshu.system.mapper.SysRoleMapper">
 
-	<resultMap type="com.weilango.common.core.domain.entity.SysRole" id="SysRoleResult">
+	<resultMap type="com.tianshu.common.core.domain.entity.SysRole" id="SysRoleResult">
 		<id     property="roleId"             column="role_id"               />
 		<result property="roleName"           column="role_name"             />
 		<result property="roleKey"            column="role_key"              />
@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="remark"             column="remark"                />
 		<result property="roleDes"            column="role_des"              />
 	</resultMap>
-	<resultMap id="RoleDropDown" type="com.weilango.common.core.domain.entity.SysRole">
+	<resultMap id="RoleDropDown" type="com.tianshu.common.core.domain.entity.SysRole">
 		<result property="roleId" column="s.role_id"/>
 		<result property="roleName" column="s.role_name"/>
 	</resultMap>
@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        left join sys_dept d on u.dept_id = d.dept_id
     </sql>
     
-    <select id="selectRoleList" parameterType="com.weilango.common.core.domain.entity.SysRole" resultMap="SysRoleResult">
+    <select id="selectRoleList" parameterType="com.tianshu.common.core.domain.entity.SysRole" resultMap="SysRoleResult">
 		<include refid="selectRoleVo"/>
 		<where>
 			r.del_flag = '0' and r.role_id != 1
@@ -85,7 +85,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 where r.role_key=#{roleKey} and r.del_flag = '0' limit 1
 	</select>
 	
- 	<insert id="insertRole" parameterType="com.weilango.common.core.domain.entity.SysRole" useGeneratedKeys="true" keyProperty="roleId">
+ 	<insert id="insertRole" parameterType="com.tianshu.common.core.domain.entity.SysRole" useGeneratedKeys="true" keyProperty="roleId">
  		insert into sys_role(
  			<if test="roleId != null and roleId != 0">role_id,</if>
  			<if test="roleName != null and roleName != ''">role_name,</if>
@@ -115,7 +115,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		)
 	</insert>
 	
-	<update id="updateRole" parameterType="com.weilango.common.core.domain.entity.SysRole">
+	<update id="updateRole" parameterType="com.tianshu.common.core.domain.entity.SysRole">
  		update sys_role
  		<set>
  			<if test="roleName != null and roleName != ''">role_name = #{roleName},</if>
@@ -143,7 +143,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			#{roleId}
         </foreach> 
  	</delete>
-	<select id="queryDropDown" resultType="com.weilango.system.domain.po.RoleDropDown">
+	<select id="queryDropDown" resultType="com.tianshu.system.domain.po.RoleDropDown">
 		select role_id , role_name from sys_role where role_id != 1 and del_flag = '0'
 	</select>
  	

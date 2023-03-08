@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.weilango.system.ISysWechattalkMapper">
 
-    <resultMap type="com.weilango.system.domain.vo.SysWechattalkDept" id="SysWechattalkDeptResult">
+    <resultMap type="com.tianshu.system.domain.vo.SysWechattalkDept" id="SysWechattalkDeptResult">
         <result property="id"    column="id"    />
         <result property="name"    column="name"    />
         <result property="parentId"    column="parent_id"    />
@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="departmentLeader"    column="department_leader"    />
     </resultMap>
 
-    <insert id="insertSysCompany" parameterType="com.weilango.system.domain.vo.SysWechattalkDept" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertSysCompany" parameterType="com.tianshu.system.domain.vo.SysWechattalkDept" useGeneratedKeys="true" keyProperty="id">
     insert into sys_wechattalk_dept
     <trim prefix="(" suffix=")" suffixOverrides=",">
     <if test="Id != null and Id != 0">id,</if>

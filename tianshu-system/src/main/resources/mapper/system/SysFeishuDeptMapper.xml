@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.weilango.system.mapper.SysFeishuDeptMapper">
+<mapper namespace="com.tianshu.system.mapper.SysFeishuDeptMapper">
     
     <resultMap type="SysFeishuDept" id="SysFeishuDeptResult">
         <result property="id"    column="id"    />

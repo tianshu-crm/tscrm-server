@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.weilango.system.mapper.SysAreaRangeLogMapper">
+<mapper namespace="com.tianshu.system.mapper.SysAreaRangeLogMapper">
 
-    <insert id="insertAreaLog" parameterType="com.weilango.system.domain.po.SysAreaRangeLog">
+    <insert id="insertAreaLog" parameterType="com.tianshu.system.domain.po.SysAreaRangeLog">
         insert into sys_area_range_log (city_code,city_name,area_id,area_name) values
         <foreach collection="list" item="item" index="index" separator=",">
             (
