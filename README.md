@@ -70,12 +70,12 @@ https://demo.tianshuyixiao.com
 *  导入到`IntelliJ IDEA`，菜单 `File` -> `Open`，然后选择 `tscrm-server`，点击 `OK`> 按钮，即可成功导入。
 *  创建数据库`tianshu_demo`并导入数据脚本`init.sql`。
 *  打开项目运行`com.weilango.WeiLanGoApplication.java`，出现如下图表示启动成功。
-![alt text](img.png)
+![avatar](https://weilango.oss-cn-beijing.aliyuncs.com/icon/img.png)
 ### 配置修改
 *  修改数据库连接，编辑`resources`目录下的`application-druid.yml`
-![alt text](img_1.png)
+![avatar](https://weilango.oss-cn-beijing.aliyuncs.com/icon/img_1.png)
 * 修改服务器配置，编辑`resources`目录下的`application.yml`
-![alt text](img_2.png)
+![avatar](https://weilango.oss-cn-beijing.aliyuncs.com/icon/img_2.png)
 ### 部署
    在项目的`bin`目录下执行`package.bat`打包Web工程，生成war/jar包文件。
 然后会在项目下生成`target`文件夹包含`war`或`jar`
@@ -83,6 +83,6 @@ https://demo.tianshuyixiao.com
 使用命令行执行：`java –jar tainshu-admin.jar`
 - 2、war部署方式
 `WeiLanGo/pom.xml`中的`packaging`修改为`war`，放入`tomcat`服务器`webapps`
-  ![alt text](img_3.png)
+  ![avatar](https://weilango.oss-cn-beijing.aliyuncs.com/icon/img_3.png)
 -  SpringBoot去除内嵌Tomcat（PS：此步骤不重要，因为不排除也能在容器中部署war）
-![alt text](img_4.png)
+![avatar](https://weilango.oss-cn-beijing.aliyuncs.com/icon/img_4.png)
