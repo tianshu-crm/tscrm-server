@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>weilango</artifactId>
-        <groupId>com.weilango</groupId>
+        <artifactId>tianshu</artifactId>
+        <groupId>com.tianshu</groupId>
         <version>3.8.4</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>weilango-framework</artifactId>
+    <artifactId>tianshu-framework</artifactId>
 
     <description>
         framework框架核心
@@ -55,14 +55,14 @@
 
         <!-- 系统模块-->
         <dependency>
-            <groupId>com.weilango</groupId>
-            <artifactId>weilango-system</artifactId>
+            <groupId>com.tianshu</groupId>
+            <artifactId>tianshu-system</artifactId>
         </dependency>
 
         <!-- crm模块-->
         <dependency>
-            <groupId>com.weilango</groupId>
-            <artifactId>weilango-crm</artifactId>
+            <groupId>com.tianshu</groupId>
+            <artifactId>tianshu-crm</artifactId>
         </dependency>
 
         <!--钉钉-->

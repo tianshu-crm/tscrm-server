@@ -4,16 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
-    <groupId>com.weilango</groupId>
-    <artifactId>weilango</artifactId>
+    <groupId>com.tianshu</groupId>
+    <artifactId>tianshu</artifactId>
     <version>3.8.4</version>
 
-    <name>weilango</name>
-    <url>http://www.weilango.vip</url>
+    <name>tianshu</name>
+    <url>https://www.tianshuyixiao.com</url>
     <description>管理系统</description>
     
     <properties>
-        <weilango.version>3.8.4</weilango.version>
+        <tianshu.version>3.8.4</tianshu.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -145,57 +145,57 @@
 
             <!-- 定时任务-->
             <dependency>
-                <groupId>com.weilango</groupId>
-                <artifactId>weilango-quartz</artifactId>
-                <version>${weilango.version}</version>
+                <groupId>com.tianshu</groupId>
+                <artifactId>tianshu-quartz</artifactId>
+                <version>${tianshu.version}</version>
             </dependency>
 
             <!-- 代码生成-->
             <dependency>
-                <groupId>com.weilango</groupId>
-                <artifactId>weilango-generator</artifactId>
-                <version>${weilango.version}</version>
+                <groupId>com.tianshu</groupId>
+                <artifactId>tianshu-generator</artifactId>
+                <version>${tianshu.version}</version>
             </dependency>
 
             <!-- 核心模块-->
             <dependency>
-                <groupId>com.weilango</groupId>
-                <artifactId>weilango-framework</artifactId>
-                <version>${weilango.version}</version>
+                <groupId>com.tianshu</groupId>
+                <artifactId>tianshu-framework</artifactId>
+                <version>${tianshu.version}</version>
             </dependency>
 
             <!-- 系统模块-->
             <dependency>
-                <groupId>com.weilango</groupId>
-                <artifactId>weilango-system</artifactId>
-                <version>${weilango.version}</version>
+                <groupId>com.tianshu</groupId>
+                <artifactId>tianshu-system</artifactId>
+                <version>${tianshu.version}</version>
             </dependency>
 
             <!-- 系统模块-->
             <dependency>
-                <groupId>com.weilango</groupId>
-                <artifactId>weilango-crm</artifactId>
-                <version>${weilango.version}</version>
+                <groupId>com.tianshu</groupId>
+                <artifactId>tianshu-crm</artifactId>
+                <version>${tianshu.version}</version>
             </dependency>
 
             <!-- 通用工具-->
             <dependency>
-                <groupId>com.weilango</groupId>
-                <artifactId>weilango-common</artifactId>
-                <version>${weilango.version}</version>
+                <groupId>com.tianshu</groupId>
+                <artifactId>tianshu-common</artifactId>
+                <version>${tianshu.version}</version>
             </dependency>
 
         </dependencies>
     </dependencyManagement>
 
     <modules>
-        <module>weilango-admin</module>
-        <module>weilango-framework</module>
-        <module>weilango-system</module>
-        <module>weilango-quartz</module>
-        <module>weilango-generator</module>
-        <module>weilango-common</module>
-        <module>weilango-crm</module>
+        <module>tianshu-admin</module>
+        <module>tianshu-framework</module>
+        <module>tianshu-system</module>
+        <module>tianshu-quartz</module>
+        <module>tianshu-generator</module>
+        <module>tianshu-common</module>
+        <module>tianshu-crm</module>
     </modules>
     <packaging>pom</packaging>
 

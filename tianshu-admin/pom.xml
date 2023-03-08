@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>weilango</artifactId>
-        <groupId>com.weilango</groupId>
+        <artifactId>tianshu</artifactId>
+        <groupId>com.tianshu</groupId>
         <version>3.8.4</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
-    <artifactId>weilango-admin</artifactId>
+    <artifactId>tianshu-admin</artifactId>
 
     <description>
         web服务入口
@@ -45,20 +45,20 @@
 
         <!-- 核心模块-->
         <dependency>
-            <groupId>com.weilango</groupId>
-            <artifactId>weilango-framework</artifactId>
+            <groupId>com.tianshu</groupId>
+            <artifactId>tianshu-framework</artifactId>
         </dependency>
 
         <!-- 定时任务-->
         <dependency>
-            <groupId>com.weilango</groupId>
-            <artifactId>weilango-quartz</artifactId>
+            <groupId>com.tianshu</groupId>
+            <artifactId>tianshu-quartz</artifactId>
         </dependency>
 
         <!-- 代码生成-->
         <dependency>
-            <groupId>com.weilango</groupId>
-            <artifactId>weilango-generator</artifactId>
+            <groupId>com.tianshu</groupId>
+            <artifactId>tianshu-generator</artifactId>
         </dependency>
     </dependencies>
 
