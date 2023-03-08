@@ -47,7 +47,7 @@
     - 通过与供应商、订单、合同、采购等管理模块深度协同，将业务与财务管理有机融合
 ## 技术栈
 *   后端：**`Java EE 8` `Spring Boot` `mysql` `MyBatis` `Maven` `Redis `**
-*  如果你是前端，后端的这些技术选型对你是特别友好的，前端开发者可以较快速地上手。 如果你是后端，Spring boot又是一种广泛流行的语言，一切看起来也是那么得熟悉。
+*   如果你是前端，后端的这些技术选型对你是特别友好的，前端开发者可以较快速地上手。 如果你是后端，Spring boot又是一种广泛流行的语言，一切看起来也是那么得熟悉。
 ## 演示
 
 https://demo.tianshuyixiao.com
@@ -69,7 +69,7 @@ https://demo.tianshuyixiao.com
 ## 运行
 *  导入到`IntelliJ IDEA`，菜单 `File` -> `Open`，然后选择 `tscrm-server`，点击 `OK`> 按钮，即可成功导入。
 *  创建数据库`tianshu_demo`并导入数据脚本`init.sql`。
-*  打开项目运行`com.weilango.WeiLanGoApplication.java`，出现如下图表示启动成功。
+*  打开项目运行`com.tianshu.TianshuApplication.java`，出现如下图表示启动成功。
 ![avatar](https://weilango.oss-cn-beijing.aliyuncs.com/icon/img.png)
 ### 配置修改
 *  修改数据库连接，编辑`resources`目录下的`application-druid.yml`
@@ -82,7 +82,7 @@ https://demo.tianshuyixiao.com
 - 1、jar部署方式
 使用命令行执行：`java –jar tainshu-admin.jar`
 - 2、war部署方式
-`WeiLanGo/pom.xml`中的`packaging`修改为`war`，放入`tomcat`服务器`webapps`
+`tscrm-server/pom.xml`中的`packaging`修改为`war`，放入`tomcat`服务器`webapps`
   ![avatar](https://weilango.oss-cn-beijing.aliyuncs.com/icon/img_3.png)
 -  SpringBoot去除内嵌Tomcat（PS：此步骤不重要，因为不排除也能在容器中部署war）
 ![avatar](https://weilango.oss-cn-beijing.aliyuncs.com/icon/img_4.png)
