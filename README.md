@@ -69,8 +69,7 @@ https://demo.tianshuyixiao.com
 ## 运行
 *  导入到`IntelliJ IDEA`，菜单 `File` -> `Open`，然后选择 `tscrm-server`，点击 `OK`> 按钮，即可成功导入。
 *  创建数据库`tianshu_demo`并导入数据脚本`init.sql`。
-*  打开项目运行`com.tianshu.TianshuApplication.java`，出现如下图表示启动成功。
-![avatar](https://weilango.oss-cn-beijing.aliyuncs.com/icon/img.png)
+*  打开项目运行`com.tianshu.TianshuApplication.java`。
 ### 配置修改
 *  修改数据库连接，编辑`resources`目录下的`application-druid.yml`
 ![avatar](https://weilango.oss-cn-beijing.aliyuncs.com/icon/img_1.png)
